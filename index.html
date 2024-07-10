@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic Plant Watering System</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e7f3e7;
+            border: 1px solid #c7e2c7;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Automatic Plant Watering System</h1>
+    </header>
+
+    <div class="container">
+        <h2>Crop Information</h2>
+        <div class="form-group">
+            <label for="crop">Choose a Crop:</label>
+            <select id="crop" name="crop">
+                <option value="rice">Rice/Paddy</option>
+                <option value="wheat">Wheat</option>
+                <option value="grain">Grain</option>
+                <option value="corn">Corn</option>
+                <option value="soybean">Soybean</option>
+                <option value="barley">Barley</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="stage">Growth Stage:</label>
+            <select id="stage" name="stage">
+                <option value="seedling">Seedling</option>
+                <option value="vegetative">Vegetative</option>
+                <option value="flowering">Flowering</option>
+                <option value="maturity">Maturity</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="temperature">Temperature (°C):</label>
+            <input type="number" id="temperature" name="temperature" min="-10" max="50">
+        </div>
+
+        <div class="form-group">
+            <label for="rainfall">Rainfall (mm):</label>
+            <input type="number" id="rainfall" name="rainfall" min="0" max="500">
+        </div>
+
+        <div class="form-group">
+            <label for="wind-speed">Wind Speed (km/h):</label>
+            <input type="number" id="wind-speed" name="wind-speed" min="0" max="150">
+        </div>
+
+        <div class="form-group">
+            <label for="soil-type">Soil Type:</label>
+            <select id="soil-type" name="soil-type">
+                <option value="sandy">Sandy</option>
+                <option value="loamy">Loamy</option>
+                <option value="clay">Clay</option>
+                <option value="silty">Silty</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="root-depth">Root Depth (cm):</label>
+            <input type="number" id="root-depth" name="root-depth" min="0" max="100">
+        </div>
+
+        <button class="btn" onclick="predictMoistureLevel()">Predict Moisture Level</button>
+
+        <div class="result" id="result">
+            <h2>Predicted Moisture Level</h2>
+            <p id="moisture-level-result"></p>
+        </div>
+    </div>
+
+    <script>
+        function predictMoistureLevel() {
+            const crop = document.getElementById('crop').value;
+            const stage = document.getElementById('stage').value;
+            const temperature = document.getElementById('temperature').value;
+            const rainfall = document.getElementById('rainfall').value;
+            const windSpeed = document.getElementById('wind-speed').value;
+            const soilType = document.getElementById('soil-type').value;
+            const rootDepth = document.getElementById('root-depth').value;
+
+            // Dummy prediction logic for demonstration
+            let moistureLevel = 50;
+            if (temperature > 30) moistureLevel -= 10;
+            if (rainfall > 100) moistureLevel += 10;
+            if (windSpeed > 30) moistureLevel -= 5;
+            if (soilType === 'sandy') moistureLevel -= 10;
+            if (soilType === 'clay') moistureLevel += 10;
+            if (rootDepth > 50) moistureLevel += 5;
+
+            const resultDiv = document.getElementById('result');
+            const moistureLevelResult = document.getElementById('moisture-level-result');
+
+            moistureLevelResult.textContent = `For ${crop} at ${stage} stage, the predicted soil moisture level is ${moistureLevel}%.`;
+
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
